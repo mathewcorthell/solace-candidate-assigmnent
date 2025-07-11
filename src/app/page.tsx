@@ -23,13 +23,15 @@ export default function Home() {
 
     console.log("filtering advocates...");
     const filteredAdvocates = advocates.filter((advocate) => {
+      // If the search term is an integer, interpret that as a minimum number of years.
+      const searchYears: number = isNaN(parseInt(searchTerm)) ? 0 : parseInt(searchTerm);
       return (
         advocate.firstName.includes(searchTerm) ||
         advocate.lastName.includes(searchTerm) ||
         advocate.city.includes(searchTerm) ||
         advocate.degree.includes(searchTerm) ||
         advocate.specialties.includes(searchTerm) ||
-        advocate.yearsOfExperience.includes(searchTerm)
+        advocate.yearsOfExperience >= searchYears
       );
     });
 
