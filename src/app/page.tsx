@@ -22,6 +22,7 @@ export default function Home() {
     document.getElementById("search-term").innerHTML = searchTerm;
 
     console.log("filtering advocates...");
+    const minimumYears = parseInt(searchTerm);
     const filteredAdvocates = advocates.filter((advocate) => {
       return (
         advocate.firstName.includes(searchTerm) ||
@@ -29,7 +30,8 @@ export default function Home() {
         advocate.city.includes(searchTerm) ||
         advocate.degree.includes(searchTerm) ||
         advocate.specialties.includes(searchTerm) ||
-        advocate.yearsOfExperience.includes(searchTerm)
+        // Assuming specified years of experience to be a minimum, not exact
+        (isNaN(minimumYears) ? false : advocate.yearsOfExperience >= minimumYears)
       );
     });
 

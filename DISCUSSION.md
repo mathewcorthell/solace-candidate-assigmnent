@@ -1,0 +1,2 @@
+# Future TODO
+- I fixed a bug where the years of experience as a search term wouldn't be correctly parsed out of the search term. Now, an integer in the search term will be considered a minimum years of experience. A better long-term fix would be to give a more granular UX where years of experience can be separately specified.
