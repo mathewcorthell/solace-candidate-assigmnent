@@ -4,3 +4,17 @@
 -- When filtering, iterate throught the specialties for each advocate and if any specialty for that advocate partially matches, include the advocate in the list.
 -- Provide text input specifically for specialties, allowing the user to search for and select desired specialties, then use the selected specialties to filter the providers.
 - **SPECIALTIES UX IMPROVEMENT** Consider shortening the the list of specialties shown by default and allow it to be expandable via "show more", or a modal.
+- **PERFORMANCE IMPROVEMENTS** 
+-- Considering a DB with hundreds of thousands of advocates, a big performance boost will be gained by shifting the filter logic from the FrontEnd to the database. The initial implementation for this sample code has a few deficiencies that will result in poor performance for end users:
+-- Problem: It returns all of the advocates to the client before filtering. That will mean shipping a lot of data across the network to the browser that the user doesn't care about.
+--- Possible solution: If we filter at the datastore, we need only return data that matches the filter.
+-- Problem: The initial implementation doesn't implement pagination. In the empty set case, or in the case of a filtered set with many results, we will send a lot of data to the browser, increasing network usage and slowing the page load time.
+--- Possible solution: We can implement pagination to return a maximum amount of data at a time, giving the user the ability to ask for more.
+-- Problem: It uses in-browser processes to perform the filtering operations on the advocate. Browsers will have different processing resources and won't necessarily be as tuned or as powerful as dedicated data servers.
+--- Possible solution: Rely on dedicated database servers with higher processor power, more memory, or even load-balanced capacity to ensure faster filtering operations.
+-- Problem: The filtering algorithm implemented in the initial code is inefficient. It necessarily examines every row of the advocate set, and non-matches have the worst performance because the algorithm will check every relevant field. 
+--- Possible solution: Rely on the indexing abilities of datastores to provide better search algorithms. A well-indexed SQL database will be able to return results from 100K rows in a very short amount of time.
+-- Problem: The universal search term that gets applied to all of the fields means the filtering operation has to consider more fields per row when we search. Even with good indexing on a SQL database, it might be costly to run this kind of search.
+--- Possible solution: Provide a more granular search UX to users, allowing them to specify values for particular fields.
+--- Possible solution: Allow incremental searches, such as an interactive field to type in location or specialty and get suggestions, then filter the advocates based on a selected location or specialty.
+--- Possible solution: A specialized indexing tool like ElasticSearch could give better performance for searches that consider all fields of the advocate at one time.
