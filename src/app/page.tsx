@@ -45,46 +45,44 @@ export default function Home() {
 
   return (
     <main style={{ margin: "24px" }}>
-      <h1>Solace Advocates</h1>
+      <h1 className="text-2xl font-bold">Solace Advocates</h1>
       <br />
       <br />
       <div>
-        <p>Search</p>
+        <p className="text-xl font-bold">Search</p>
         <p>
           Searching for: <span id="search-term"></span>
         </p>
-        <input style={{ border: "1px solid black" }} onChange={onChange} />
-        <button onClick={onClick}>Reset Search</button>
+        <input className="border border-black mx-5" onChange={onChange} />
+        <button onClick={onClick} className="bg-gray-100 border border-black px-1">Reset Search</button>
       </div>
       <br />
       <br />
       <table>
         <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>City</th>
-            <th>Degree</th>
-            <th>Specialties</th>
-            <th>Years of Experience</th>
-            <th>Phone Number</th>
+          <tr className="bg-blue-100">
+            <th className="text-left px-5 py-1">Name</th>
+            <th className="text-left px-5 py-1">City</th>
+            <th className="text-left px-5 py-1">Degree</th>
+            <th className="text-left px-5 text-left py-1">Specialties</th>
+            <th className="text-left px-5 py-1">Years of Experience</th>
+            <th className="text-left px-5 py-1">Phone Number</th>
           </tr>
         </thead>
         <tbody>
-          {filteredAdvocates.map((advocate) => {
+          {filteredAdvocates.map((advocate, index) => {
             return (
-              <tr key={advocate.id}>
-                <td>{advocate.firstName}</td>
-                <td>{advocate.lastName}</td>
-                <td>{advocate.city}</td>
-                <td>{advocate.degree}</td>
-                <td>
+              <tr key={advocate.id} className={(index % 2) == 0 ? "" : "bg-gray-100"}>
+                <td className="align-top text-lg font-semibold px-5 py-1">{advocate.firstName} {advocate.lastName}</td>
+                <td className="align-top px-5 py-1">{advocate.city}</td>
+                <td className="align-top text-center px-5 py-1">{advocate.degree}</td>
+                <td className="align-top text-sm px-5 py-1">
                   {advocate.specialties.map((s, sIndex) => (
                     <div key={sIndex}>{s}</div>
                   ))}
                 </td>
-                <td>{advocate.yearsOfExperience}</td>
-                <td>{advocate.phoneNumber}</td>
+                <td className="align-top text-center px-5 py-1">{advocate.yearsOfExperience}</td>
+                <td className="align-top text-center px-5 py-1">{advocate.phoneNumber}</td>
               </tr>
             );
           })}
