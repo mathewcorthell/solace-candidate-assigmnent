@@ -45,16 +45,16 @@ export default function Home() {
 
   return (
     <main style={{ margin: "24px" }}>
-      <h1>Solace Advocates</h1>
+      <h1 className="text-2xl font-bold">Solace Advocates</h1>
       <br />
       <br />
       <div>
-        <p>Search</p>
+        <p className="text-xl font-bold">Search</p>
         <p>
           Searching for: <span id="search-term"></span>
         </p>
-        <input style={{ border: "1px solid black" }} onChange={onChange} />
-        <button onClick={onClick}>Reset Search</button>
+        <input className="border border-black mx-5" onChange={onChange} />
+        <button onClick={onClick} className="bg-gray-100 border border-black px-1">Reset Search</button>
       </div>
       <br />
       <br />
